@@ -1,0 +1,7 @@
+hadoop_streaming_path: "/opt/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.1.3.jar"
+hadoop_hdfs_url: "hdfs://0.0.0.0:9000"
+
+hdfs_user: "amax"
+hdfs_url: "http://0.0.0.0:50070"
+
+LOG_DIR: "logs"

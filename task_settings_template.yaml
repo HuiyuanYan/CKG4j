@@ -1,0 +1,38 @@
+task1:
+  enable: true
+  args:
+    overwrite: true
+
+task2:
+  enable: true
+  args:
+    overwrite: true
+
+task3:
+  enable: true
+  args:
+    overwrite: true
+
+task4:
+  enable: true
+  args:
+    damping_factor: 0.85
+    epsilon: 1.0e-6
+    max_iterations: 100
+    overwrite: true
+
+task5:
+  enable: true
+  args:
+    alpha: 0.5
+    overwrite: true
+
+task6:
+  enable: true
+  graph_source: 5 # 3: graph without pruning 5: graph with pruning
+  args:
+    top_k_characters: 5
+    max_iterations: 50
+    main_character_source: page_rank
+    save_temp: false
+    overwrite: true

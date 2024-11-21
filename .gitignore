@@ -1,0 +1,5 @@
+*.tar.gz
+data/logs
+basic_settings.yaml
+task_settings.yaml
+__pycache__
