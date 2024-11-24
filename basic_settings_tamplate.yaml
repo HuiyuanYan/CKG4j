@@ -5,3 +5,7 @@ hdfs_user: "amax"
 hdfs_url: "http://0.0.0.0:50070"
 
 LOG_DIR: "logs"
+
+openai_api_key: "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai_api_base: "http://0.0.0.0:8000/v1"
+openai_api_model: "gpt-3.5-turbo"

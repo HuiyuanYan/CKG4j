@@ -4,6 +4,7 @@ import argparse
 sys.path.append(os.getcwd())
 from pathlib import Path
 from settings import Settings
+import src.task0.run as run_task0
 import src.task1.run as run_task1
 import src.task2.run as run_task2
 import src.task3.run as run_task3
@@ -20,7 +21,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser(description="Run the pipeline with specified parameters.")
     parser.add_argument("--input_dir", required=True, help="Input directory path.")
-    parser.add_argument("--character_json", required=True, help="Path to the character.json file.")
+    parser.add_argument("--character_json", default=None, help="Path to the character.json file.")
     parser.add_argument("--output_dir", required=True, help="Output directory path.")
     return parser.parse_args()
 
@@ -34,7 +35,7 @@ def resolve_path(path: str) -> Path:
         resolved_path = Settings.CKG4J_ROOT / resolved_path
     return resolved_path.resolve()
 
-def run_pipeline(input_dir: Path, character_json: Path, output_dir: Path):
+def run_pipeline(input_dir: Path, output_dir: Path, character_json: Path = None,):
     # Resolve directories
     input_dir = resolve_path(input_dir)
     character_json = resolve_path(character_json)
@@ -46,10 +47,37 @@ def run_pipeline(input_dir: Path, character_json: Path, output_dir: Path):
     print(f"Output Directory: {output_dir}")
     
 
-    # Task 1
+    # Task0
+    task0_output_dir = str(Path(output_dir / "task0"))
+    task0_json_path = str(Path(output_dir / "character.json"))
+    if Settings.task_settings.task0["enable"]:
+        os.makedirs(task0_output_dir, exist_ok=True)
+        try:
+            logger.info(f"Running Task0...")
+            run_task0.run(
+                input_dir,
+                task0_output_dir,
+                task0_json_path,
+                **Settings.task_settings.task0["args"]
+            )
+            logger.info(f"Task0 finished successfully, output_dir: {task0_output_dir}")
+        except Exception as e:
+            logger.error(f"Error running Task0: {e}")
 
+    # Task 1
     task1_output_dir = str(Path(output_dir / "task1"))
     if Settings.task_settings.task1["enable"]:
+        if not Settings.task_settings.task0["enable"]:
+            if character_json is None:
+                logger.error(f"Error: Task1 requires character_json to be specified.")
+                return
+            # 使用用户自定义的character_json
+            logger.info(f"Using custom character_json: {character_json}")
+            input_character_json = character_json
+        else:
+            input_character_json = task0_json_path
+            logger.info(f"Using character_json from Task0: {input_character_json}")
+
         os.makedirs(task1_output_dir, exist_ok=True)
         try:
             logger.info(f"Running Task1...")
@@ -157,4 +185,4 @@ def run_pipeline(input_dir: Path, character_json: Path, output_dir: Path):
 
 if __name__ == "__main__":
     args = parse_args()
-    run_pipeline(args.input_dir, args.character_json, args.output_dir)
+    run_pipeline(args.input_dir, args.output_dir,args.character_json)

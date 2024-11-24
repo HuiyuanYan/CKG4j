@@ -67,6 +67,11 @@ hadoop_hdfs_url: "hdfs://0.0.0.0:9000"
 hdfs_user: "amax"
 hdfs_url: "http://0.0.0.0:50070"
 
+# 非必须，目前只需要在实体过滤时使用LLM的情况下设置
+openai_api_key: ""
+openai_api_base: ""
+openai_api_model: ""
+
 LOG_DIR: "logs"
 ```
 
@@ -83,6 +88,7 @@ task1:
 
 为了正确提取人物同现关系和人物社区划分，本项目的核心逻辑是将人物划分为几个阶段：
 
++ task0: 人名实体抽取及过滤（不太准确，建议自行给出需要分析的人名字典）
 + task1：人物词频统计
 + task2：人物同现关系构建
 + task3：人物同现关系归一化
@@ -93,7 +99,7 @@ task1:
 本项目提供了脚本`src/run_pipeline.py`支持一键运行全部/某些阶段任务，该脚本说明如下：
 
 输入：
-+ `--character_json`: 存放人名字典的路径，关系构建将基于这些人名展开。
++ `--character_json`: 存放人名字典的路径，关系构建将基于这些人名展开。若指定task0运行，则无需指定该路径，程序将自动读取task0的输出。
 + `--input_dir`: 输入文件夹，该文件夹下的所有文件应该是你要进行关系构建的文本文档，建议放在项目根目录的`data`文件夹下。
 + `--output_dir`: 输出文件夹，该文件夹存放各个阶段的输出。
 
@@ -110,7 +116,7 @@ python src/run_pipeline.py --input_dir data/hp/files --character_json data/hp/ch
 
 ## 未来计划
 
-### 1. 增加实体抽取流程
+### 1. 增加实体抽取流程（已完成）
 
 现阶段的人名列表是用户自定义给出的，未来计划用自然语言处理工具抽取人物实体，并给出人名列表。
 

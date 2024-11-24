@@ -1,3 +1,14 @@
+task0:
+  enable: false
+  args:
+    extract_method: jieba
+    entity_type: nr
+    spacy_model: zh_core_web_sm
+    overwrite: true
+    top_n:
+    min_frep:
+    use_llm: true
+
 task1:
   enable: true
   args:

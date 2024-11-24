@@ -20,6 +20,11 @@ class BasicSettings(BaseFileSettings):
 
     hdfs_url: str = str("")
 
+    openai_api_key: str = str("")
+
+    openai_api_base: str = str("")
+
+    openai_api_model: str = str("gpt-3.5-turbo")
 
     @cached_property
     def DATA_PATH(self) -> Path:
@@ -44,6 +49,19 @@ class BasicSettings(BaseFileSettings):
 class TaskSettings(BaseFileSettings):
     
     model_config = SettingsConfigDict(yaml_file=CKG4J_ROOT / "task_settings.yaml")
+
+    task0: dict = {
+        "enable": True,
+        "args": {
+            "extract_method": "jieba",
+            "entity_type": "nr",
+            "spacy_model_name": "zh_core_web_sm",
+            "overwrite": True,
+            "top_n": None,
+            "min_freq": None,
+            "use_llm": True,
+        }
+    }
 
     task1: dict = {
         "enable": True,
