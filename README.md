@@ -116,7 +116,7 @@ python src/run_pipeline.py --input_dir data/hp/files --character_json data/hp/ch
 
 此外，每个阶段的任务可以单独运行，其原理和命令在`src/taskX/README.md`下可查看，**强烈推荐**运行项目前先仔细阅读这些文档。
 
-## 未来计划
+## 其它功能
 
 ### 1. 增加实体抽取流程（已完成）
 
@@ -155,6 +155,10 @@ python src/run_pipeline.py --input_dir data/hp/files --character_json data/hp/ch
 
 可以在`src/script`下写脚本或单独在源代码部分实现一个模块，实现对指定社群关系和邻接关系文件的`neo4j`数据库连接和存储。
 
+![](./media/neo4j_tb.png)
+
+![](./media/neo4j_hp.png)
+
 ### 3. 人物信息生成
 
 只有人物邻接关系的知识图谱显然是单调的，我们希望：
@@ -184,8 +188,21 @@ python src/run_pipeline.py --input_dir data/hp/files --character_json data/hp/ch
 
 ### 4. 其它可视化展示
 
-我们希望使用`Gephi`等软件、词云等工具展示人物关系图谱和人物重要性，例如：
+使用`Gephi`等软件、词云等工具展示人物关系图谱和人物重要性，例如：
 
-![词云可视化展示](media/word_cloud.png)
 
-![Gephi可视化展示](media/gephi.png)
+
+词云：
+
+![](./media/word_cloud_tb.png)
+
+
+
+![词云可视化展示](media/word_cloud_hp.png)
+
+
+
++ Gephi：
+
+![Gephi可视化展示](media/gephi_hp.png)
+
